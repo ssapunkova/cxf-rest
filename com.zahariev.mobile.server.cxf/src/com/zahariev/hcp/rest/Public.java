@@ -10,10 +10,10 @@ import javax.ws.rs.core.MediaType;
 
 import com.zahariev.hcp.rest.model.Machine;
 
-@Path("v1")
+@Path("public")
 public interface Public {
     @GET
-    @Path("machines/")
+    @Path("/")
     @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_JSON })
 	public List<Machine> getMachines();
