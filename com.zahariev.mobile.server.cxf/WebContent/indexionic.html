@@ -4,46 +4,33 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link
-	href="/com.zahariev.mobile.server.cxf/ionic/css/ionic.min.css"
+	href="/com.zahariev.mobile.server/ionic/css/ionic.min.css"
 	rel="stylesheet">
 <script
-	src="/com.zahariev.mobile.server.cxf/ionic/js/ionic.bundle.min.js"></script>
-<script src="/com.zahariev.mobile.server.cxf/jquery/jquery-1.11.1.min.js"></script>
-
+	src="/com.zahariev.mobile.server/ionic/js/ionic.bundle.min.js"></script>
 <script>
-	angular.module('ionicApp', [ 'ionic' ])
-		.controller('MyCtrl', function($scope) {
-			// Fetch the data
-			var params = {
-				url : "/com.zahariev.mobile.server.cxf/rest/public",
-				dataType : "json",
-				contentType : "application/json",
-				context : this,
-				cache : false,
-				async : false
-			};
-		
-			jQuery.ajax(params).done(function(result) {
-				$scope.items = result;
-			}).fail(function() {
+	angular.module('ionicApp', ['ionic'])
+		.controller('MyCtrl', function($scope, $http) {
+			$http.get('/com.zahariev.mobile.server.cxf/rest/public').then(function(result) {
+				$scope.items = result.data;
+			}, function(error) {
 				alert("Error fetching data");
 			});
-	});
+		});
 </script>
 </head>
 
 <body ng-controller="MyCtrl">
-	<ion-nav-view> 
-		<ion-view title="My View"> 
+	<ion-nav-view>
+		<ion-view title="My View">
 			<ion-content>
-				<ion-list> 
+				<ion-list>
 					<ion-item ng-repeat="item in items" item="item" href="#/item/{{item.systemNumber}}">
-						{{ item.systemNumber }} {{ item.systemName }} 
-					</ion-item> 
-				</ion-list> 
-			</ion-content> 
-		</ion-view> 
+						{{ item.systemNumber }} {{ item.systemName }}
+					</ion-item>
+				</ion-list>
+			</ion-content>
+		</ion-view>
 	</ion-nav-view>
-
 </body>
 </html>

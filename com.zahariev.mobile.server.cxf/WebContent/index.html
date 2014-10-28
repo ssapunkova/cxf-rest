@@ -19,55 +19,52 @@
 
 	// create a List control
 	var list = new sap.m.List({
-		headerText : "Systems"
+		headerText: "Systems"
 	});
 
 	// bind the List items to the data collection
-	list.bindItems({
-		path : "/",
-		sorter : new sap.ui.model.Sorter("systemNumber"),
-		template : new sap.m.StandardListItem({
-			title : "{systemNumber}",
-			description : "{systemName}",
-			type : sap.m.ListType.Navigation,
-			press : function(evt) {
+	list.bindItems("/", new sap.m.StandardListItem({
+			title: "{systemNumber}",
+			description: "{systemName}",
+			type: sap.m.ListType.Navigation,
+			press: function(evt) {
 				var oBindingContext = evt.getSource().getBindingContext(); // evt.getSource() is the ListItem
 				page2.setBindingContext(oBindingContext); // make sure the detail page has the correct data context
 				app.to("page2");
 			}
-		})
-	});
-
+		}),
+		new sap.ui.model.Sorter("systemNumber")
+	);
 	// create the page holding the List
 	var page1 = new sap.m.Page({
-		title : "Systems Page",
-		content : list
+		title: "Systems Page",
+		content: list
 	});
 
 	// create the detail page
 	var page2 = new sap.m.Page("page2", {
-		title : "Detail Page",
-		showNavButton : true,
-		navButtonPress : function() {
+		title: "Detail Page",
+		showNavButton: true,
+		navButtonPress: function() {
 			app.back();
 		},
-		content : [ new sap.ui.layout.form.SimpleForm({
-			title : "Details for {systemNumber} {systemName}",
-			content : [ new sap.m.Label({
-				text : "System number"
+		content: [new sap.ui.layout.form.SimpleForm({
+			title: "Details for {systemNumber} {systemName}",
+			content: [new sap.m.Label({
+				text: "System number"
 			}), new sap.m.Text({
-				text : "{systemNumber}"
+				text: "{systemNumber}"
 			}), new sap.m.Label({
-				text : "System name"
+				text: "System name"
 			}), new sap.m.Text({
-				text : "{systemName}"
-			}) ]
-		}) ]
+				text: "{systemName}"
+			})]
+		})]
 	});
 
 	// create a mobile App holding the pages and place the App into the HTML document
 	var app = new sap.m.App({
-		pages : [ page1, page2 ]
+		pages: [page1, page2]
 	}).placeAt("content");
 
 	// set the model to the App; it will be propagated to the children
@@ -78,4 +75,3 @@
 <body id="content" class="sapUiBody">
 </body>
 </html>
-
