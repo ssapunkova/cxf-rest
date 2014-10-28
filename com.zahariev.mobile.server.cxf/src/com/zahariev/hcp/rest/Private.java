@@ -9,36 +9,39 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 
 import org.springframework.stereotype.Service;
 
 import com.zahariev.hcp.rest.model.Machine;
 import com.zahariev.hcp.rest.model.MachineFactory;
 
-@Path("public")
-@Service("publicService")
-public class Public {
+@Path("private")
+@Service("privateService")
+public class Private {
 	private static List<Machine> machines = null;
+
+	@Context
+	UriInfo uriInfo;
 
 	private static void initMachines() {
 		if (machines == null) {
 			machines = new ArrayList<Machine>();
 			for (int i = 0; i < 5; i++) {
-				String systemName = "PublicSystem["+ i + "]";
+				String systemName = "PrivateSystem["+ i + "]";
 				machines.add(MachineFactory.getMachine(systemName));
 			}
 		}
 	}
 
-	public Public() {
+	public Private() {
 		initMachines();
 	}
 
-    @GET
-    @Path("/")
-    @Consumes({ MediaType.APPLICATION_JSON })
-    @Produces({ MediaType.APPLICATION_JSON })
+	@GET
+	@Produces(MediaType.APPLICATION_JSON )
 	public List<Machine> getMachines() {
 		System.out.println("getMachines");
 		return machines;
@@ -46,7 +49,7 @@ public class Public {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON )
-	@Path("{macid}")
+	@Path("{macid}/")
 	public Machine getMachine(@PathParam("macid") String strMacId) {
 		System.out.println("getMachine(" + strMacId + ")");
 		try {
@@ -72,5 +75,6 @@ public class Public {
 		machines.add(machineEntry);
 		return machineEntry.getSystemNumber();
 	}
+
 
 }

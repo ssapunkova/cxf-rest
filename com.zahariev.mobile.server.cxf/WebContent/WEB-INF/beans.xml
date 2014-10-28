@@ -12,10 +12,12 @@
 	<jaxrs:server id="restContainer" address="/">
 		<jaxrs:serviceBeans>
 			<ref bean="publicService" />
+			<ref bean="privateService" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
 		</jaxrs:providers>
 	</jaxrs:server>
-	<bean class="com.zahariev.hcp.rest.PublicImpl" id="publicService"></bean>
+	<bean class="com.zahariev.hcp.rest.Public" id="publicService"></bean>
+	<bean class="com.zahariev.hcp.rest.Private" id="privateService"></bean>
 </beans>

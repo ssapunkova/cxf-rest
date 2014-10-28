@@ -27,4 +27,29 @@
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>
+	
+	<!-- Secure application -->
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Protected Area</web-resource-name>
+			<url-pattern>/rest/private/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>Everyone</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Public Area</web-resource-name>
+			<url-pattern>/rest/*</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+	<security-role>
+		<description>All SAP HANA Cloud Platform users</description>
+		<role-name>Everyone</role-name>
+	</security-role>
+	
 </web-app>
