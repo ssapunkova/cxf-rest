@@ -12,28 +12,8 @@
 	data-sap-ui-theme="sap_bluecrystal"></script>
 
 <script type="text/javascript">
-	// Fetch the data
-	var params = {
-	            url: "/com.zahariev.mobile.server.cxf/rest/public",
-	            dataType: "json",
-	            contentType: "application/json",
-	            context: this,
-	            cache: false,
-	            async: false
-	        	};
-
-	var data = ""; 
-	jQuery.ajax(params)
-		.done(function(result) {
-			data = result;
-		})
-		.fail(function() {
-			alert( "Error fetching data" );
-		});
-
-	// create a Model with this data
-	var model = new sap.ui.model.json.JSONModel();
-	model.setData(data);
+	// Fetch a Model
+	var model = new sap.ui.model.json.JSONModel("/com.zahariev.mobile.server.cxf/rest/public");
 
 	// create the UI
 
