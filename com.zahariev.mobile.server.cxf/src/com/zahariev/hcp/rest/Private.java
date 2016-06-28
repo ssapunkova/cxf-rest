@@ -13,13 +13,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
-import org.springframework.stereotype.Service;
-
 import com.zahariev.hcp.rest.model.Machine;
 import com.zahariev.hcp.rest.model.MachineFactory;
 
 @Path("private")
-@Service("privateService")
 public class Private {
 	private static List<Machine> machines = null;
 
@@ -30,7 +27,7 @@ public class Private {
 		if (machines == null) {
 			machines = new ArrayList<Machine>();
 			for (int i = 0; i < 5; i++) {
-				String systemName = "PrivateSystem["+ i + "]";
+				String systemName = "PrivateSystem[" + i + "]";
 				machines.add(MachineFactory.getMachine(systemName));
 			}
 		}
@@ -41,14 +38,14 @@ public class Private {
 	}
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON )
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<Machine> getMachines() {
 		System.out.println("getMachines");
 		return machines;
 	}
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON )
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{macid}/")
 	public Machine getMachine(@PathParam("macid") String strMacId) {
 		System.out.println("getMachine(" + strMacId + ")");
@@ -75,6 +72,5 @@ public class Private {
 		machines.add(machineEntry);
 		return machineEntry.getSystemNumber();
 	}
-
 
 }

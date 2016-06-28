@@ -11,13 +11,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.springframework.stereotype.Service;
-
 import com.zahariev.hcp.rest.model.Machine;
 import com.zahariev.hcp.rest.model.MachineFactory;
 
 @Path("public")
-@Service("publicService")
 public class Public {
 	private static List<Machine> machines = null;
 
@@ -25,7 +22,7 @@ public class Public {
 		if (machines == null) {
 			machines = new ArrayList<Machine>();
 			for (int i = 0; i < 5; i++) {
-				String systemName = "PublicSystem["+ i + "]";
+				String systemName = "PublicSystem[" + i + "]";
 				machines.add(MachineFactory.getMachine(systemName));
 			}
 		}
@@ -35,17 +32,17 @@ public class Public {
 		initMachines();
 	}
 
-    @GET
-    @Path("/")
-    @Consumes({ MediaType.APPLICATION_JSON })
-    @Produces({ MediaType.APPLICATION_JSON })
+	@GET
+	@Path("/")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Machine> getMachines() {
 		System.out.println("getMachines");
 		return machines;
 	}
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON )
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{macid}")
 	public Machine getMachine(@PathParam("macid") String strMacId) {
 		System.out.println("getMachine(" + strMacId + ")");
